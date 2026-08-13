@@ -1,11 +1,26 @@
+REGISTRY=2tdsarm563112
+RG_NAME=rg-rm563112-aci
+LOCATION=eastus2
+
+ACR_USERNAME=$(az acr credential show \
+        --name $REGISTRY \
+        --query username \
+        --output tsv)
+
+ACR_PASSWORD=$(az acr credential show \
+        --name 2tdsarm563112 \
+        --query 'passwords[0].value' \
+        --output tsv)
+
 az container create \
-        --resource-group rg-rm563112-acr \
+        --resource-group $RG_NAME \
         --name guacamole-api \
-        --image 2tdsarm563112.azurecr.io/guacamole:v3 \
-        --location eastus2 \
+        --image $REGISTRY.azurecr.io/guacamole:v1 \
+        --location $LOCATION \
         --cpu 1 \
         --memory 2 \
         --ports 8080 \
-        --registry-username 2tdsarm563112 \
-        --registry-password $REGISTRY_PASSWORD \
-        --os-type Linux
+        --registry-username $ACR_USERNAME \
+        --registry-password $ACR_PASSWORD \
+        --os-type Linux \
+        --ip-address Public
