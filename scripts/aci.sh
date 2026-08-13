@@ -26,7 +26,7 @@ az container create \
         --registry-password $ACR_PASSWORD \
         --environment-variables \
                 SPRING_DATASOURCE_URL="jdbc:postgresql://db:5432/recipes" \
-        --secure-environment-variabels \
+        --secure-environment-variables \
                 SPRING_DATASOURCE_USERNAME="postgres" \
                 SPRING_DATASOURCE_PASSWORD="postgres" \
         --os-type Linux \
