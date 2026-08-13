@@ -2,13 +2,15 @@ REGISTRY=2tdsarm563112
 RG_NAME=rg-rm563112-aci
 LOCATION=eastus2
 
+az group create --name $RG_NAME --location $LOCATION
+
 ACR_USERNAME=$(az acr credential show \
         --name $REGISTRY \
         --query username \
         --output tsv)
 
 ACR_PASSWORD=$(az acr credential show \
-        --name 2tdsarm563112 \
+        --name $REGISTRY \
         --query 'passwords[0].value' \
         --output tsv)
 
